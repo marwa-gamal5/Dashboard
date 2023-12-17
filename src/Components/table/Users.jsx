@@ -1,6 +1,9 @@
-import './table.css'
+
+import styles from './Users.module.css';
 import React, { useState } from 'react';
-function Table() {
+import { Link } from 'react-router-dom';
+import Viewoneuser from './viewoneuser/viewoneuser.jsx'
+function Users() {
   const [filter, setFilter] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedUserType, setSelectedUserType] = useState('');
@@ -42,27 +45,22 @@ function Table() {
   
     return (
      <>
+         <div className={`${styles.table}`} >
 
-         <div className='table  '>
-             
-                 
          <div>
-        <div className="page-header">
+        <div className={`${styles.page_header}`} >
           <h1>Users</h1>
           <small>Users / Dashboard</small>
         </div>
-        <div className="page-content">
-          
-          <div className="records table-responsive">
-            <div className="record-header">
-              <div className="add">
-                <span>Entries</span>
-                <select name id>
-                  <option value>ID</option>
-                </select>
-                <button>Add record</button>
-              </div>
-              <div className="browse">
+        <div className={`${styles.page_content}`}  >
+
+
+
+          <div  className={` ${styles.records} ${styles.table_responsive}`}>
+              <div className={`${styles.record_header}`}  >
+
+                  <div className={`${styles.browse}`}  >
+
                 <input type="search" placeholder="Search" className="record-search"
                 value={filter}
                 onChange={(e) => setFilter(e.target.value)}
@@ -95,27 +93,27 @@ function Table() {
                 </thead>
                 <tbody>
           {currentItems.map((item) => (
-            <tr key={item.id}>
-              <td>{item.id}</td>
-              <td>{item.FullName}</td>
-              <td>{item.UserType}</td>
-              <td>{item.ActivationStatus}</td>
-              <td>{item.DateJoined}</td>
-              <td>
-                          <div style={{border:'none' ,backgroundColor:"#fff"}}>
-                          <i className='fa fa-edit' ></i>
-                          
-                          </div>
-                          
-                        </td>
-              
-            </tr>
+              <tr key={item.id}>
+                  <td>{item.id}</td>
+                  <td>{item.FullName}</td>
+                  <td>{item.UserType}</td>
+                  <td>{item.ActivationStatus}</td>
+                  <td>{item.DateJoined}</td>
+                  <td>
+                      <div style={{border: 'none', backgroundColor: '#fff'}}>
+                          <Link to={`/profile/${item.id}`}>
+                              <i className='fa fa-edit'></i>
+                          </Link>
+                      </div>
+                  </td>
+
+              </tr>
           ))}
-        </tbody>
+                </tbody>
               </table>
-              <div className='mt-5'>
-              <nav aria-label="...">
-                  <ul className="pagination">
+                <div className='mt-5'>
+                    <nav aria-label="...">
+                        <ul className="pagination">
                     <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
                       <button className="page-link" onClick={() => paginate(currentPage - 1)}>
                         Previous
@@ -152,4 +150,4 @@ function Table() {
   );
 }
 
-export default Table;
+export default Users;
